@@ -1,0 +1,59 @@
+CREATE TABLE Stations (StationName VARCHAR(100)) AS Node
+
+select * from Stations
+
+CREATE TABLE Vias (
+    ViaName VARCHAR(100)
+    , Color VARCHAR(20)
+    , Distance INT
+    ) AS Edge
+
+INSERT INTO Stations (StationName)
+VALUES ('FAJARDO')
+    , ('SAN JUAN')
+    , ('ARECIBO')
+    , ('AGUADILLA')
+    , ('CABO ROJO')
+    , ('PONCE')
+    , ('SALINAS')
+    , ('ADJUNTAS')
+    , ('OROCOVIS')
+
+DECLARE @From VARCHAR(100) = 'FAJARDO'
+    , @To VARCHAR(100) = 'SAN JUAN'
+    , @ViaName VARCHAR(100) = 'F-SJ-W'
+    , @ViaNameAlt VARCHAR(100) = 'F-SJ-E'
+    , @Color VARCHAR(20) = 'Red'
+    , @Distance INT = 29
+    , @FromNode NVARCHAR(1000)
+    , @ToNode NVARCHAR(1000)
+
+SET @FromNode = (
+        SELECT $NODE_ID
+        FROM Stations
+        WHERE StationName = @From
+        )
+SET @ToNode = (
+        SELECT $NODE_ID
+        FROM Stations
+        WHERE StationName = @To
+        )
+
+INSERT INTO Vias
+VALUES (
+    @FromNode
+    , @ToNode
+    , @ViaName
+    , @Color
+    , @Distance
+    )
+    , (
+    @FromNode
+    , @ToNode
+    , @ViaNameAlt
+    , @Color
+    , @Distance
+    )
+
+SELECT *
+FROM Vias

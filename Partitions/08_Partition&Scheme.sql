@@ -1,0 +1,33 @@
+CREATE PARTITION FUNCTION [SalesPartitionByYear] (DATE) AS RANGE LEFT
+FOR
+VALUES (
+	
+	  '20100101'
+	, '20110101'
+	, '20120101'
+	, '20130101'
+	, '20140101'
+	, '20150101'
+	, '20160101'
+	, '20170101'
+	, '20180101'
+	, '20190101'
+	, '20200101'
+	)
+GO
+
+CREATE PARTITION SCHEME SalesDataScheme AS PARTITION SalesPartitionByYear TO (
+	  Sales2009
+	, Sales2010
+	, Sales2011
+	, Sales2012
+	, Sales2013
+	, Sales2014
+	, Sales2015
+	, Sales2016
+	, Sales2017
+	, Sales2018
+	, Sales2019
+	, Sales2020
+	)
+GO
